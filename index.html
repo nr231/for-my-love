@@ -83,7 +83,7 @@ button:hover {
     margin-top: 15px;
     display: inline-block;
     text-decoration: none;
-    color: white;
+    color: black;
     background: #FA2333; /* Apple Music pinkish red */
     padding: 10px 20px;
     border-radius: 20px;
@@ -127,22 +127,22 @@ button:hover {
 <!-- Main Page -->
 <div id="main">
     <div class="container">
-        <h1>Hi Beautiful 💕</h1>
+        <h1>Hey mi amor 💕</h1>
         <p>You scanned this because I love you.</p>
         <button onclick="showMessage()">Click for a surprise 💌</button>
 
         <div class="hidden-message" id="loveMessage">
-            <p>You are my favorite person. My safe place. My everything.
-            I’m so lucky I get to love you.</p>
+            <p>Have the best lunar new year! I wish you a new year
+            full of health, happiness, and peace. </p>
 
             <a href="https://music.apple.com/us/playlist/mi-amor/pl.u-r2yBYz2FPkKRAdg" target="_blank" class="playlist">
                 🎵 A playlist for you
             </a>
 
             <div id="game">
-                <p>Will you be mine forever?</p>
-                <button onclick="yesResponse()">Yes ❤️</button>
-                <button onclick="yesResponse()">Yes 😍</button>
+                <p>I have two things to tell you, want to know what it is?</p>
+                <button onclick="yesResponse()">Yes❤️</button>
+                <button onclick="anotherResponse()">Yes😍</button>
             </div>
         </div>
     </div>
@@ -164,7 +164,10 @@ function showMessage() {
 
 // Yes or Yes game response
 function yesResponse() {
-    alert("🥰 I knew it! Forever and always ❤️");
+    alert("Tienes mi corazon para siempre❤️");
+}
+function anotherResponse() {
+    alert("Em là niềm vui của em");
 }
 
 // Floating hearts
