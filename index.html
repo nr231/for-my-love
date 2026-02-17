@@ -3,39 +3,62 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Love ❤️</title>
-
+<title>Your Surprise ❤️</title>
 <style>
-body {
+/* General */
+body, html {
     margin: 0;
+    padding: 0;
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    overflow: hidden;
+}
+
+/* Landing Page */
+#landing {
+    background-color: black;
+    color: white;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    overflow: hidden;
+    flex-direction: column;
+    cursor: pointer;
     text-align: center;
+}
+#landing h1 {
+    font-size: 2rem;
+    animation: blink 1s infinite;
+}
+@keyframes blink {
+    0%,50%,100% { opacity: 1; }
+    25%,75% { opacity: 0; }
+}
+
+/* Main Container */
+#main {
+    display: none;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    flex-direction: column;
 }
 
 .container {
     background: white;
-    padding: 40px;
+    padding: 30px;
     border-radius: 25px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     max-width: 350px;
-    position: relative;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
 }
 
-h1 {
-    color: #ff4d6d;
-    font-size: 2rem;
-}
-
-p {
-    color: #444;
-    font-size: 1rem;
-}
+h1 { color: #ff4d6d; font-size: 2rem; }
+p { color: #444; font-size: 1rem; }
 
 button {
     margin-top: 15px;
@@ -48,92 +71,103 @@ button {
     cursor: pointer;
     transition: 0.3s;
 }
-
 button:hover {
-    background-color: #ff1e4d;
     transform: scale(1.05);
+    background-color: #ff1e4d;
 }
 
-.hidden-message {
-    display: none;
-    margin-top: 15px;
-    animation: fadeIn 1s ease-in;
-}
+.hidden-message { display: none; margin-top: 15px; animation: fadeIn 1s ease-in; }
+@keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
 
 .playlist {
     margin-top: 15px;
     display: inline-block;
     text-decoration: none;
     color: white;
-    background: #1DB954;
+    background: #FA2333; /* Apple Music pinkish red */
     padding: 10px 20px;
     border-radius: 20px;
     font-size: 0.9rem;
     transition: 0.3s;
 }
-
-.playlist:hover {
-    transform: scale(1.05);
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
+.playlist:hover { transform: scale(1.05); }
 
 /* Floating hearts */
 .heart {
     position: absolute;
-    color: rgba(255, 77, 109, 0.3);
+    color: rgba(255,77,109,0.3);
     font-size: 20px;
     animation: floatUp 6s linear infinite;
 }
-
 @keyframes floatUp {
-    0% {
-        bottom: -20px;
-        opacity: 0;
-    }
-    50% {
-        opacity: 1;
-    }
-    100% {
-        bottom: 100%;
-        opacity: 0;
-    }
+    0% { bottom: -20px; opacity:0; }
+    50% { opacity:1; }
+    100% { bottom:100%; opacity:0; }
 }
+
+/* Yes or Yes Game */
+#game {
+    display: none;
+    margin-top: 20px;
+}
+#game button {
+    background-color: #ffb347;
+    color: #fff;
+}
+#game button:hover { background-color: #ff7e5f; }
 </style>
 </head>
-
 <body>
 
-<div class="container">
-    <h1>Hi Beautiful 💕</h1>
-    <p>You scanned this because I love you.</p>
+<!-- Landing Page -->
+<div id="landing" onclick="openMain()">
+    <h1>Tap to open your surprise 💌</h1>
+</div>
 
-    <button onclick="showMessage()">Click for a surprise 💌</button>
+<!-- Main Page -->
+<div id="main">
+    <div class="container">
+        <h1>Hi Beautiful 💕</h1>
+        <p>You scanned this because I love you.</p>
+        <button onclick="showMessage()">Click for a surprise 💌</button>
 
-    <div class="hidden-message" id="loveMessage">
-        <p>
-            You are my favorite person in this world.
-            My safe place. My peace. My everything.
-            I’m so lucky I get to love you.
-        </p>
+        <div class="hidden-message" id="loveMessage">
+            <p>You are my favorite person. My safe place. My everything.
+            I’m so lucky I get to love you.</p>
+
+            <a href="https://music.apple.com/us/playlist/mi-amor/pl.u-r2yBYz2FPkKRAdg" target="_blank" class="playlist">
+                🎵 A playlist for you
+            </a>
+
+            <div id="game">
+                <p>Will you be mine forever?</p>
+                <button onclick="yesResponse()">Yes ❤️</button>
+                <button onclick="yesResponse()">Yes 😍</button>
+            </div>
+        </div>
     </div>
-
-
-    <a href="https://music.apple.com/us/playlist/mi-amor/pl.u-r2yBYz2FPkKRAdg" target="_blank" class="playlist">
-        🎵 Our Playlist
-    </a>
-
 </div>
 
 <script>
-function showMessage() {
-    document.getElementById("loveMessage").style.display = "block";
+// Landing page -> Main page
+function openMain() {
+    document.getElementById("landing").style.display = "none";
+    document.getElementById("main").style.display = "flex";
 }
 
-// Generate floating hearts
+// Reveal message + show game
+function showMessage() {
+    const msg = document.getElementById("loveMessage");
+    msg.style.display = "block";
+    document.getElementById("game").style.display = "block";
+}
+
+// Yes or Yes game response
+function yesResponse() {
+    alert("🥰 I knew it! Forever and always ❤️");
+}
+
+// Floating hearts
 setInterval(() => {
     const heart = document.createElement("div");
     heart.classList.add("heart");
@@ -142,10 +176,7 @@ setInterval(() => {
     heart.style.fontSize = (Math.random() * 20 + 10) + "px";
     heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
     document.body.appendChild(heart);
-
-    setTimeout(() => {
-        heart.remove();
-    }, 6000);
+    setTimeout(() => heart.remove(), 6000);
 }, 500);
 </script>
 
