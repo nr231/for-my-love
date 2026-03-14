@@ -1,260 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>You're My Universe</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0b0c2c">
+<title>Mi Amor Night Sky 🌌💖</title>
 <style>
-body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:black;
-    color:white;
-    overflow:hidden;
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(-45deg, #0b0c2c, #1a1b48, #0b0c2c, #1f204f);
+  background-size: 400% 400%;
+  animation: skyGradient 20s ease infinite;
+  font-family: Arial, sans-serif;
+  color: #fff;
+  text-align: center;
+  overflow-x: hidden;
 }
-h1{
-    text-align:center;
-    font-size:50px;
-    margin-top:40px;
+
+@keyframes skyGradient {
+  0% {background-position:0% 50%;}
+  50% {background-position:100% 50%;}
+  100% {background-position:0% 50%;}
 }
-p{
-    text-align:center;
-    font-size:20px;
+
+h1 {margin-top: 20px; font-size: 2rem; color: #f5f5f5;}
+h2 {margin-top: 15px; font-size: 1.5rem; color: #ffd700;}
+p {margin: 10px 20px; font-size: 1rem; line-height: 1.5; color: #e0e0ff;}
+
+/* Background Layers */
+.background-layer {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
 }
-#stars, #planets{
-    position:fixed;
-    width:100%;
-    height:100%;
-    top:0;
-    left:0;
-    z-index:-2;
+
+/* Stars */
+.star {
+  position: absolute;
+  color: #fff;
+  font-size: 0.8rem;
+  opacity: 0;
+  animation: twinkle 3s infinite ease-in-out;
+  cursor: pointer;
+  user-select: none;
 }
-.star{
-    position:absolute;
-    width:2px;
-    height:2px;
-    background:white;
-    border-radius:50%;
-    opacity:0;
-    animation:twinkle 3s infinite alternate;
+.star:hover {transform: scale(1.3);}
+.star:active {transform: scale(1.5); color: #ffd700;}
+
+@keyframes twinkle {
+  0%,100% {opacity:0;}
+  50% {opacity:1;}
 }
-@keyframes twinkle{
-    from {opacity:0;}
-    to {opacity:1;}
+
+/* Floating Planets / Elements */
+.floating {
+  position: absolute;
+  font-size: 2rem;
+  opacity: 0.3;
+  animation-duration: 35s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
-.planet{
-    position:absolute;
-    width:50px;
-    height:50px;
-    border-radius:50%;
-    background: radial-gradient(circle at 30% 30%, #ffb347, #ffcc33);
-    opacity:0.7;
+.float-right {animation-name: floatRight;}
+.float-left {animation-name: floatLeft;}
+
+@keyframes floatRight {
+  from {transform: translateX(-20vw);}
+  to {transform: translateX(120vw);}
 }
-#game{
-    margin-top:40px;
-    text-align:center;
+@keyframes floatLeft {
+  from {transform: translateX(120vw);}
+  to {transform: translateX(-20vw);}
 }
-#gameArea{
-    position:relative;
-    width:80%;
-    height:400px;
-    margin:auto;
-    border:2px solid white;
-    border-radius:10px;
-    overflow:hidden;
-    background:radial-gradient(circle at 50% 50%, #000000, #0a0a0a, #000000);
+
+/* Content Section */
+.content-container {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  animation: fadeIn 1s ease;
+  padding-top: 60px;
+  min-height: 100vh;
 }
-.spaceship{
-    position:absolute;
-    font-size:30px;
-    left:45%;
-    top:80%;
-    user-select:none;
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(10px);}
+  to {opacity: 1; transform: translateY(0);}
 }
-.gameHeart{
-    position:absolute;
-    font-size:25px;
-    user-select:none;
+
+/* Fact Boxes */
+.fact {
+  background: rgba(10, 12, 40, 0.6);
+  border-radius: 12px;
+  padding: 15px 20px;
+  margin: 10px;
+  max-width: 90%;
+  text-align: left;
+  box-shadow: 0 0 10px rgba(255,255,255,0.2);
+  transition: transform 0.3s;
 }
-button{
-    padding:10px 20px;
-    font-size:16px;
-    margin-top:10px;
-    border:none;
-    border-radius:5px;
-    background:#e84393;
-    color:white;
-    cursor:pointer;
-}
-.loveMessage{
-    display:none;
-    position:fixed;
-    top:20%;
-    left:50%;
-    transform:translateX(-50%);
-    background:rgba(0,0,0,0.7);
-    padding:20px;
-    border:2px solid #e84393;
-    border-radius:10px;
-    font-size:24px;
-    color:#ff6b81;
-    z-index:10;
-    text-align:center;
+.fact:hover {transform: scale(1.03);}
+
+/* Tooltip for interactive stars */
+.tooltip {
+  position: absolute;
+  background: rgba(0,0,20,0.9);
+  color: #ffd700;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 3;
 }
 </style>
 </head>
 <body>
 
-<h1>🌌 You're My Universe 🌌</h1>
-<p>Out of billions of stars in the universe, you're my favorite one.</p>
+<h1>Mi Amor Night Sky 🌌</h1>
 
-<div id="stars"></div>
-<div id="planets"></div>
-
-<div id="game">
-<h2>💖 Collect the Hearts Game 💖</h2>
-<p>Use arrow keys to move your spaceship and collect hearts!</p>
-<p>Score: <span id="score">0</span></p>
-
-<div id="gameArea">
-    <div class="spaceship">🚀</div>
+<div class="background-layer" id="background">
+  <div class="floating float-right" style="top:15%;">🌟</div>
+  <div class="floating float-left" style="top:30%;">🌙</div>
+  <div class="floating float-right" style="top:45%;">✨</div>
+  <div class="floating float-left" style="top:60%;">🌟</div>
 </div>
 
-<button onclick="startGame()">Start Game</button>
+<div class="content-container" id="content">
+  <h2>Stars & Night Facts for Mi Amor 💖</h2>
+  <div id="facts"></div>
 </div>
 
-<div id="loveMessage" class="loveMessage">I love you more than all the stars in the universe! ❤️</div>
+<div class="tooltip" id="tooltip"></div>
 
 <script>
-// Background stars
-const starCount = 100;
-const starsContainer = document.getElementById("stars");
-for(let i=0;i<starCount;i++){
-    let star = document.createElement("div");
-    star.classList.add("star");
-    star.style.left = Math.random()*100+"%";
-    star.style.top = Math.random()*100+"%";
-    star.style.width = Math.random()*3+1+"px";
-    star.style.height = star.style.width;
-    star.style.animationDuration = (Math.random()*3+1)+"s";
-    starsContainer.appendChild(star);
-    let dx = (Math.random()-0.5)/2;
-    let dy = (Math.random()-0.5)/2;
-    setInterval(()=>{
-        let x = parseFloat(star.style.left);
-        let y = parseFloat(star.style.top);
-        x += dx;
-        y += dy;
-        if(x<0) x=100; if(x>100)x=0;
-        if(y<0) y=100; if(y>100)y=0;
-        star.style.left = x+"%";
-        star.style.top = y+"%";
-    },100);
-}
+// Create twinkling stars dynamically
+const background = document.getElementById('background');
+const tooltip = document.getElementById('tooltip');
 
-// Floating planets
-const planetCount = 5;
-const planetsContainer = document.getElementById("planets");
-for(let i=0;i<planetCount;i++){
-    let planet = document.createElement("div");
-    planet.classList.add("planet");
-    planet.style.left = Math.random()*90+"%";
-    planet.style.top = Math.random()*80+"%";
-    planet.style.width = 40 + Math.random()*30 + "px";
-    planet.style.height = planet.style.width;
-    planetsContainer.appendChild(planet);
-    let dx = (Math.random()-0.5)/3;
-    let dy = (Math.random()-0.5)/3;
-    setInterval(()=>{
-        let x = parseFloat(planet.style.left);
-        let y = parseFloat(planet.style.top);
-        x += dx;
-        y += dy;
-        if(x<0)x=100; if(x>100)x=0;
-        if(y<0)y=100; if(y>100)y=0;
-        planet.style.left = x+"%";
-        planet.style.top = y+"%";
-    },100);
-}
-
-// Spaceship controls
-const spaceship = document.querySelector(".spaceship");
-const keys = {};
-document.addEventListener("keydown",(e)=>{keys[e.key]=true;});
-document.addEventListener("keyup",(e)=>{keys[e.key]=false;});
-
-function moveSpaceship(){
-    let left = parseFloat(spaceship.style.left);
-    let top = parseFloat(spaceship.style.top);
-    const speed = 10;
-    if(keys["ArrowLeft"] && left>0) left -= speed;
-    if(keys["ArrowRight"] && left<gameArea.clientWidth-30) left += speed;
-    if(keys["ArrowUp"] && top>0) top -= speed;
-    if(keys["ArrowDown"] && top<gameArea.clientHeight-30) top += speed;
-    spaceship.style.left = left+"px";
-    spaceship.style.top = top+"px";
-}
-
-// Hearts spawn
-const gameArea = document.getElementById("gameArea");
-let score = 0;
-
-function spawnHeart(){
-    let heart = document.createElement("div");
-    heart.classList.add("gameHeart");
-    heart.innerHTML = "💖";
-    heart.style.left = Math.random()*(gameArea.clientWidth-30)+"px";
-    heart.style.top = Math.random()*(gameArea.clientHeight-30)+"px";
-    gameArea.appendChild(heart);
-    setTimeout(()=>{if(heart.parentNode) heart.remove();},3000);
-}
-
-// Collision detection
-function checkCollision(){
-    const hearts = document.querySelectorAll(".gameHeart");
-    const shipRect = spaceship.getBoundingClientRect();
-    hearts.forEach(heart=>{
-        const heartRect = heart.getBoundingClientRect();
-        if(!(shipRect.right<heartRect.left || 
-             shipRect.left>heartRect.right || 
-             shipRect.bottom<heartRect.top || 
-             shipRect.top>heartRect.bottom)){
-            score++;
-            document.getElementById("score").innerText = score;
-            heart.remove();
-            showLoveMessage(score);
-        }
+function createStars(count=80){
+  for(let i=0;i<count;i++){
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.innerText = '✦';
+    star.style.left = Math.random()*100 + 'vw';
+    star.style.top = Math.random()*100 + 'vh';
+    star.style.fontSize = (0.5 + Math.random()*1.5) + 'rem';
+    star.style.animationDelay = Math.random()*3 + 's';
+    
+    // Add interactive facts for some stars
+    const starFacts = [
+      "✨ You shine as bright as the stars!",
+      "🌙 Your birthday moon brings intuition.",
+      "⭐ Stars have been lighting your nights since 2002.",
+      "🌠 The Delta Aquariids meteors were active near your birth.",
+      "💫 Twinkle twinkle, your cosmic energy shines."
+    ];
+    star.addEventListener('click', (e)=>{
+      const fact = starFacts[Math.floor(Math.random()*starFacts.length)];
+      tooltip.innerText = fact;
+      tooltip.style.left = e.clientX + 10 + 'px';
+      tooltip.style.top = e.clientY - 30 + 'px';
+      tooltip.style.opacity = 1;
+      tooltip.style.transform = 'scale(1.1)';
+      setTimeout(()=>{tooltip.style.opacity=0; tooltip.style.transform='scale(1)';}, 2000);
     });
+    
+    background.appendChild(star);
+  }
 }
 
-// Love messages
-const messages = [
-    {score:5,text:"You make my heart soar! 💕"},
-    {score:10,text:"I love you to the moon and back! 🌙"},
-    {score:15,text:"You are my entire universe! 🌌"}
+createStars();
+
+// Star and night facts based on July 19, 2002
+const factsData = [
+  "🌌 You were born under the star sign Cancer (June 21 - July 22), ruled by the Moon.",
+  "🌙 Your Moon sign on July 19, 2002 is Aquarius, symbolizing intuition and imagination.",
+  "✨ The Sun was in Cancer, giving you strong empathy and nurturing energy.",
+  "⭐ The night sky on your birthday had constellations like Sagittarius and Scorpio visible in the summer sky.",
+  "🌠 In 2002, there was a notable meteor shower from the Delta Aquariids visible in July night skies.",
+  "💫 Stars you were born under have been shining for millions of years—connecting your birth to the cosmos.",
+  "🌌 The Milky Way was prominently visible in dark summer skies that night."
 ];
-function showLoveMessage(score){
-    messages.forEach(msg=>{
-        if(score===msg.score){
-            const el = document.getElementById("loveMessage");
-            el.innerText = msg.text;
-            el.style.display = "block";
-            setTimeout(()=>{el.style.display="none";},3000);
-        }
-    });
-}
 
-// Start game
-let gameInterval;
-function startGame(){
-    score=0;
-    document.getElementById("score").innerText = score;
-    clearInterval(gameInterval);
-    gameInterval = setInterval(()=>{
-        spawnHeart();
-        moveSpaceship();
-        checkCollision();
-    },100);
-}
+const factsContainer = document.getElementById('facts');
+factsData.forEach(f=>{
+  const div = document.createElement('div');
+  div.className='fact';
+  div.innerText=f;
+  factsContainer.appendChild(div);
+});
 </script>
+
 </body>
 </html>
