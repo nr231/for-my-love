@@ -5,8 +5,27 @@
 <title> PARA EL AMOR DE MI VIDA 💖</title>
 
 <style>
-body {
+/* ✅ FIX WHITE GAPS */
+html, body {
     margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: black;
+}
+
+/* 💖 PAGE FADE-IN */
+body {
+    opacity: 0;
+    animation: pageFadeIn 1.8s ease forwards;
+}
+
+@keyframes pageFadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+body {
     font-family: Arial, Helvetica, sans-serif;
     color: white;
     text-align: center;
@@ -14,17 +33,12 @@ body {
     background-size: cover;
 }
 
-/* 💫 Smooth entrance */
+/* 💫 Smooth entrance overlay */
 .overlay {
     background: rgba(0,0,0,0.5);
     min-height: 100vh;
+    min-height: 100dvh; /* ✅ mobile fix */
     padding: 20px;
-    opacity: 0;
-    animation: fadeIn 2s ease forwards;
-}
-
-@keyframes fadeIn {
-    to { opacity: 1; }
 }
 
 /* 📱 Mobile optimization */
@@ -124,7 +138,6 @@ h1 {
     text-align: center;
     color: white;
     box-shadow: 0 0 20px rgba(255,105,180,0.6);
-    pointer-events: auto;
 }
 
 .modal-content input {
@@ -164,12 +177,10 @@ h1 {
 
 <h1><span class="pink">I LOVE YOU!</span></h1>
 
-<!-- PHOTO -->
 <div class="photobooth">
     <img src="us.HEIC" alt="us 💕">
 </div>
 
-<!-- BUTTONS -->
 <div class="letters">
 
     <button id="btn1" class="btn" onclick="showNote(1); playMusicOnce()">
@@ -186,7 +197,6 @@ h1 {
 
 </div>
 
-<!-- NOTES -->
 <div id="note1" class="note">
     You’re my Angel fr 💖  
     I don’t even know how I got this lucky, but I’m so appreciative of you
@@ -209,7 +219,6 @@ h1 {
 <script>
 let musicStarted = false;
 
-/* 🎶 music */
 function playMusicOnce() {
     if (!musicStarted) {
         document.getElementById("bgMusic").play();
@@ -217,7 +226,6 @@ function playMusicOnce() {
     }
 }
 
-/* 💌 notes */
 function showNote(num) {
     let notes = document.querySelectorAll('.note');
     notes.forEach(n => n.style.display = 'none');
@@ -228,7 +236,6 @@ function showNote(num) {
     if (num === 2) document.getElementById("btn3").disabled = false;
 }
 
-/* 💖 open modal */
 function openPasswordModal() {
     let modal = document.getElementById("passwordModal");
     modal.style.display = "block";
@@ -238,7 +245,6 @@ function openPasswordModal() {
     }, 100);
 }
 
-/* 🔐 check password */
 function checkPassword() {
     let input = document.getElementById("passwordInput").value.toLowerCase();
 
@@ -250,7 +256,6 @@ function checkPassword() {
     }
 }
 
-/* click outside closes modal */
 window.onclick = function(event) {
     let modal = document.getElementById("passwordModal");
     if (event.target == modal) {
