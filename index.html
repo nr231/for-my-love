@@ -96,7 +96,9 @@ h1 {
 
 <!-- LOVE LETTER BUTTONS -->
 <div class="letters">
-    <button class="btn" onclick="showNote(1)">Open Letter 💌</button>
+    <button class="btn" onclick="showNote(1); playMusicOnce()">
+    Open Letter 💌
+</button>
     <button class="btn" onclick="showNote(2)">Another One 👀</button>
     <button class="btn" onclick="showNote(3)">Last One 💖</button>
 </div>
@@ -155,6 +157,30 @@ function checkPassword() {
     }
 }
 </script>
+<script>
+function playMusicOnce() {
+    if (!musicStarted) {
+        let audio = document.getElementById("bgMusic");
+        audio.volume = 0;
+        audio.play();
 
+        let vol = 0;
+        let fade = setInterval(() => {
+            if (vol < 1) {
+                vol += 0.05;
+                audio.volume = vol;
+            } else {
+                clearInterval(fade);
+            }
+        }, 100);
+        
+        musicStarted = true;
+    }
+}
+</script>
+
+<audio id="bgMusic">
+    <source src="oursong.mp3" type="audio/mpeg">
+</audio>
 </body>
 </html>
