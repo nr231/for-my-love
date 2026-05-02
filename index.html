@@ -136,5 +136,25 @@ function showNote(num) {
 }
 </script>
 
+<script>
+function showNote(num) {
+    let notes = document.querySelectorAll('.note');
+    notes.forEach(n => n.style.display = 'none');
+
+    document.getElementById('note' + num).style.display = 'block';
+}
+
+// PASSWORD CHECK
+function checkPassword() {
+    let input = document.getElementById("password").value.toLowerCase();
+
+    if (input === "max") {
+        document.getElementById("finalMessage").style.display = "block";
+    } else {
+        alert("Wrong password 😭 try again");
+    }
+}
+</script>
+
 </body>
 </html>
