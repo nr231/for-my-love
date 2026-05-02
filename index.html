@@ -2,84 +2,79 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A Little Universe For You</title>
+<title>Angel 💖 & Stitch 💙</title>
 
 <style>
+body {
+    margin: 0;
+    font-family: 'Comic Sans MS', cursive;
+    color: white;
+    text-align: center;
 
-body{
-margin:0;
-font-family:Arial, sans-serif;
-background:black;
-color:white;
-overflow-x:hidden;
-text-align:center;
+    /* YOUR BACKGROUND */
+    background: url("heartbackgroung.png.webp") no-repeat center center fixed;
+    background-size: cover;
 }
 
-/* Floating background stars */
-
-.star{
-position:fixed;
-width:2px;
-height:2px;
-background:white;
-animation:floatStar linear infinite;
+/* Dark overlay so text is readable */
+.overlay {
+    background: rgba(0,0,0,0.5);
+    min-height: 100vh;
+    padding: 20px;
 }
 
-@keyframes floatStar{
-from{transform:translateY(100vh);opacity:0;}
-10%{opacity:1;}
-90%{opacity:1;}
-to{transform:translateY(-10vh);opacity:0;}
+h1 {
+    font-size: 3em;
+    margin-top: 20px;
 }
 
-.container{
-padding:40px 20px;
-position:relative;
-z-index:2;
+.pink { color: #ff69b4; text-shadow: 0 0 10px #ff69b4; }
+.blue { color: #4da6ff; text-shadow: 0 0 10px #4da6ff; }
+
+/* Photo Booth Strip */
+.photobooth {
+    margin-top: 30px;
 }
 
-h1{
-font-size:2.5rem;
+.photobooth img {
+    width: 250px;
+    border-radius: 20px;
+    border: 4px solid white;
+    box-shadow: 0 0 20px rgba(255,255,255,0.6);
 }
 
-button{
-padding:12px 18px;
-margin:8px;
-border:none;
-border-radius:20px;
-background:#ff6ec7;
-color:white;
-cursor:pointer;
-font-size:16px;
-transition:.3s;
+/* Love Letter Buttons */
+.letters {
+    margin-top: 40px;
 }
 
-button:hover{
-transform:scale(1.1);
-background:#ff8ad4;
+.btn {
+    background: linear-gradient(45deg, #ff69b4, #4da6ff);
+    border: none;
+    padding: 12px 20px;
+    margin: 10px;
+    border-radius: 20px;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-.section{
-display:none;
-max-width:700px;
-margin:auto;
-margin-top:30px;
+.btn:hover {
+    transform: scale(1.1);
 }
 
-.active{
-display:block;
-}
-
-ul{
-text-align:left;
-line-height:1.6;
-}
-
-canvas{
-background:rgba(255,255,255,0.05);
-border-radius:10px;
-margin-top:20px;
+/* Hidden Love Notes */
+.note {
+    display: none;
+    margin-top: 20px;
+    background: rgba(255,255,255,0.2);
+    padding: 20px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 </style>
@@ -87,248 +82,51 @@ margin-top:20px;
 
 <body>
 
-<div id="stars"></div>
+<div class="overlay">
 
-<div class="container">
+<h1>
+    <span class="pink">I LOVE YOU</span>
+</h1>
 
-<h1>For You ✨</h1>
-<p>I made this little universe for you.</p>
+<p>Our little love world 🥺✨</p>
 
-<div>
-<button onclick="showSection('list')">100 Things About You</button>
-<button onclick="showSection('message')">A Message</button>
-<button onclick="showSection('game')">Plane Game ✈️</button>
+<!-- PHOTO BOOTH -->
+<div class="photobooth">
+    <img src="photobooth.jpg" alt="us 💕">
 </div>
 
-<div id="list" class="section">
-<h2>100 Things That Make You Amazing</h2>
-<ul id="thingsList"></ul>
+<!-- LOVE LETTER BUTTONS -->
+<div class="letters">
+    <button class="btn" onclick="showNote(1)">Open Letter 💌</button>
+    <button class="btn" onclick="showNote(2)">Another One 👀</button>
+    <button class="btn" onclick="showNote(3)">Last One 💖</button>
 </div>
 
-<div id="message" class="section">
-
-<h2>I’ll Miss You While You're Traveling</h2>
-
-<p>
-I know you're about to go on an adventure and I'm genuinely excited for you.
-But at the same time I'm going to miss you a lot.
-</p>
-
-<p>
-So I made this tiny universe you can open anytime you tap your NFC tag.
-</p>
-
-<p>
-No matter where you go, just remember someone here thinks you're incredible.
-</p>
-
-<p>❤️</p>
-
+<!-- LOVE NOTES -->
+<div id="note1" class="note">
+    You’re my Angel fr 💖  
+    I don’t even know how I got this lucky, but I’m so appreciative of you
 </div>
 
-<div id="game" class="section">
+<div id="note2" class="note">
+    Every picture we take, every moment we have  
+    it just keeps getting better with you❤️
+</div>
 
-<h2>Fly the Plane ✈️</h2>
-<p>Swipe or drag to dodge the stars!</p>
-
-<canvas id="gameCanvas" width="320" height="400"></canvas>
-
+<div id="note3" class="note">
+    It’s always gonna be me and you.  
+    I'm deeply in love with you💗
 </div>
 
 </div>
 
 <script>
+function showNote(num) {
+    let notes = document.querySelectorAll('.note');
+    notes.forEach(n => n.style.display = 'none');
 
-/* SECTION SWITCH */
-
-function showSection(id){
-document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"))
-document.getElementById(id).classList.add("active")
+    document.getElementById('note' + num).style.display = 'block';
 }
-
-/* FLOATING BACKGROUND STARS */
-
-const starContainer = document.getElementById("stars")
-
-for(let i=0;i<120;i++){
-
-let star = document.createElement("div")
-star.className="star"
-
-star.style.left=Math.random()*100+"vw"
-star.style.animationDuration=(5+Math.random()*10)+"s"
-star.style.animationDelay=Math.random()*10+"s"
-
-starContainer.appendChild(star)
-
-}
-
-/* AUTO 100 THINGS */
-
-const compliments = [
-
-"Your smile",
-"Your laugh",
-"Your eyes",
-"Your adventurous spirit",
-"The way you light up rooms",
-"Your curiosity about the world",
-"Your sense of humor",
-"The way you care about people",
-"Your determination",
-"Your intelligence",
-"Your creativity",
-"Your honesty",
-"The way you listen",
-"Your energy",
-"Your style",
-"The way you tell stories",
-"Your patience",
-"Your passion",
-"Your warmth",
-"Your genuineness",
-"Your confidence",
-"The way you encourage others",
-"Your positivity",
-"The way you make ordinary days special",
-"Your empathy",
-"The way you chase dreams",
-"Your bravery",
-"The way you laugh at dumb jokes",
-"Your thoughtfulness",
-"The way you love deeply",
-"Your spontaneity",
-"The way you brighten my day",
-"Your voice",
-"The way you care about little things",
-"Your imagination",
-"The way you make me feel safe",
-"Your independence",
-"The way you appreciate life",
-"Your curiosity",
-"The way you smile with your eyes",
-"Your compassion",
-"The way you handle challenges",
-"Your playful side",
-"The way you see beauty everywhere",
-"Your ambition",
-"The way you inspire me",
-"Your loyalty",
-"Your kindness",
-"Your resilience",
-"The way you make me feel like the luckiest person in the world",
-"For being you"
-
-]
-
-const list = document.getElementById("thingsList")
-
-for(let i=0;i<100;i++){
-
-let item = compliments[i % compliments.length]
-
-let li = document.createElement("li")
-li.textContent = `${i+1}. ${item}`
-
-list.appendChild(li)
-
-}
-
-/* PLANE GAME */
-
-const canvas = document.getElementById("gameCanvas")
-const ctx = canvas.getContext("2d")
-
-let plane = {x:150,y:340}
-let obstacles=[]
-let score = 0
-
-/* HARDER STAR SPAWN */
-
-function spawnStar(){
-
-for(let i=0;i<2;i++){
-
-obstacles.push({
-x:Math.random()*300,
-y:-20,
-speed:2+Math.random()*3
-})
-
-}
-
-}
-
-setInterval(spawnStar,400)
-
-/* TOUCH CONTROLS */
-
-canvas.addEventListener("touchmove",(e)=>{
-
-let rect = canvas.getBoundingClientRect()
-let touchX = e.touches[0].clientX - rect.left
-
-plane.x = touchX
-
-})
-
-/* DESKTOP SUPPORT */
-
-canvas.addEventListener("mousemove",(e)=>{
-
-let rect = canvas.getBoundingClientRect()
-plane.x = e.clientX - rect.left
-
-})
-
-function gameLoop(){
-
-ctx.clearRect(0,0,canvas.width,canvas.height)
-
-ctx.font="16px Arial"
-
-/* DRAW SCORE */
-
-score += 0.05
-ctx.fillText("Score: " + Math.floor(score),10,20)
-
-/* DRAW PLANE */
-
-ctx.fillText("✈️",plane.x,plane.y)
-
-/* STARS */
-
-obstacles.forEach((star,i)=>{
-
-star.y += star.speed
-
-ctx.fillText("⭐",star.x,star.y)
-
-if(
-star.y>plane.y-10 &&
-star.x>plane.x-10 &&
-star.x<plane.x+20
-){
-
-alert("Final Score: " + Math.floor(score) + " ⭐\nEven when you crash into stars, you're still my favorite pilot ❤️")
-
-score = 0
-obstacles=[]
-
-}
-
-if(star.y>400){
-obstacles.splice(i,1)
-}
-
-})
-
-requestAnimationFrame(gameLoop)
-
-}
-
-gameLoop()
-
 </script>
 
 </body>
