@@ -27,7 +27,31 @@ body {
 @keyframes fadeIn {
     to { opacity: 1; }
 }
+/* 📱 Mobile optimization */
+@media (max-width: 768px) {
 
+    h1 {
+        font-size: 4.5em;
+    }
+
+    body {
+        font-size: 1.2em;
+    }
+
+    .btn {
+        font-size: 1.3em;
+        padding: 16px 24px;
+    }
+
+    .photobooth img {
+        width: 320px;
+    }
+
+    .note {
+        font-size: 1.2em;
+        padding: 25px;
+    }
+}
 h1 {
     font-size: 3em;
     margin-top: 20px;
