@@ -10,17 +10,22 @@ body {
     font-family: 'Comic Sans MS', cursive;
     color: white;
     text-align: center;
-
-    /* YOUR BACKGROUND */
     background: url("hearts.jpg") no-repeat center center fixed;
     background-size: cover;
 }
 
-/* Dark overlay so text is readable */
+/* 💫 Smooth entrance */
 .overlay {
     background: rgba(0,0,0,0.5);
     min-height: 100vh;
     padding: 20px;
+
+    opacity: 0;
+    animation: fadeIn 2s ease forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
 }
 
 h1 {
@@ -31,11 +36,7 @@ h1 {
 .pink { color: #ff69b4; text-shadow: 0 0 10px #ff69b4; }
 .blue { color: #4da6ff; text-shadow: 0 0 10px #4da6ff; }
 
-/* Photo Booth Strip */
-.photobooth {
-    margin-top: 30px;
-}
-
+/* Photo */
 .photobooth img {
     width: 250px;
     border-radius: 20px;
@@ -43,7 +44,7 @@ h1 {
     box-shadow: 0 0 20px rgba(255,255,255,0.6);
 }
 
-/* Love Letter Buttons */
+/* Buttons */
 .letters {
     margin-top: 40px;
 }
@@ -64,7 +65,12 @@ h1 {
     transform: scale(1.1);
 }
 
-/* Hidden Love Notes */
+.btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* Notes */
 .note {
     display: none;
     margin-top: 20px;
@@ -76,34 +82,46 @@ h1 {
     margin-left: auto;
     margin-right: auto;
 }
-
 </style>
 </head>
 
 <body>
 
+<!-- 🎶 Music -->
+<audio id="bgMusic">
+    <source src="oursong.mp3" type="audio/mpeg">
+</audio>
+
 <div class="overlay">
 
-<h1>
-    <span class="pink">I LOVE YOU!</span>
-</h1>
+<h1><span class="pink">I LOVE YOU!</span></h1>
 
-
-<!-- PHOTO BOOTH -->
+<!-- PHOTO -->
 <div class="photobooth">
     <img src="us.HEIC" alt="us 💕">
 </div>
 
-<!-- LOVE LETTER BUTTONS -->
+<!-- BUTTONS -->
 <div class="letters">
-    <button class="btn" onclick="showNote(1); playMusicOnce()">
-    Open Letter 💌
-</button>
-    <button class="btn" onclick="showNote(2)">Another One 👀</button>
-    <button class="btn" onclick="showNote(3)">Last One 💖</button>
+
+    <!-- FIRST BUTTON ALWAYS ACTIVE -->
+    <button id="btn1" class="btn" onclick="showNote(1); playMusicOnce()">
+        Open Letter 💌
+    </button>
+
+    <!-- LOCKED UNTIL BTN1 -->
+    <button id="btn2" class="btn" onclick="showNote(2)" disabled>
+        Another One 👀
+    </button>
+
+    <!-- LOCKED UNTIL BTN2 -->
+    <button id="btn3" class="btn" onclick="showNote(3)" disabled>
+        Last One 💖
+    </button>
+
 </div>
 
-<!-- LOVE NOTES -->
+<!-- NOTES -->
 <div id="note1" class="note">
     You’re my Angel fr 💖  
     I don’t even know how I got this lucky, but I’m so appreciative of you
@@ -111,10 +129,9 @@ h1 {
 
 <div id="note2" class="note">
     Every picture we take, every moment we have  
-    it just keeps getting better with you❤️
+    it just keeps getting better with you ❤️
 </div>
 
-<!-- LOCKED LOVE NOTE -->
 <div id="note3" class="note">
     <p>Hint: our first child 👀</p>
 
@@ -124,29 +141,41 @@ h1 {
 
     <div id="finalMessage" style="display:none; margin-top:15px;">
         It’s always gonna be me and you.  
-        I'm deeply in love with you💗
+        I'm deeply in love with you 💗
     </div>
 </div>
 
+</div>
 
 <script>
+let musicStarted = false;
+
+/* 🎶 Play music only once */
+function playMusicOnce() {
+    if (!musicStarted) {
+        document.getElementById("bgMusic").play();
+        musicStarted = true;
+    }
+}
+
+/* 💌 Main note system + unlocking */
 function showNote(num) {
     let notes = document.querySelectorAll('.note');
     notes.forEach(n => n.style.display = 'none');
 
     document.getElementById('note' + num).style.display = 'block';
+
+    // 🔓 Unlock progression
+    if (num === 1) {
+        document.getElementById("btn2").disabled = false;
+    }
+
+    if (num === 2) {
+        document.getElementById("btn3").disabled = false;
+    }
 }
-</script>
 
-<script>
-function showNote(num) {
-    let notes = document.querySelectorAll('.note');
-    notes.forEach(n => n.style.display = 'none');
-
-    document.getElementById('note' + num).style.display = 'block';
-}
-
-// PASSWORD CHECK
+/* 🔐 Password check */
 function checkPassword() {
     let input = document.getElementById("password").value.toLowerCase();
 
@@ -157,30 +186,6 @@ function checkPassword() {
     }
 }
 </script>
-<script>
-function playMusicOnce() {
-    if (!musicStarted) {
-        let audio = document.getElementById("bgMusic");
-        audio.volume = 0;
-        audio.play();
 
-        let vol = 0;
-        let fade = setInterval(() => {
-            if (vol < 1) {
-                vol += 0.05;
-                audio.volume = vol;
-            } else {
-                clearInterval(fade);
-            }
-        }, 100);
-        
-        musicStarted = true;
-    }
-}
-</script>
-
-<audio id="bgMusic">
-    <source src="oursong.mp3" type="audio/mpeg">
-</audio>
 </body>
 </html>
