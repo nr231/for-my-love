@@ -1,33 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Background Test</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Background Test</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        html, body {
-            width: 100%;
-            height: 100%;
-        }
+html, body {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    overflow: hidden;
+}
 
-        body {
-            background-image: url("IMG_0173.jpeg"); /* Change to your image filename */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            overflow: hidden;
-        }
-    </style>
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Entire image is visible */
+}
+</style>
 </head>
 <body>
+
+<img src="IMG_0173.jpeg" alt="Work in Progress">
 
 </body>
 </html>
